@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration Form</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+
+            /* Centering */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .form-container {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            width: 350px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0 15px;
+        }
+
+        .inline {
+            width: auto;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        #output {
+            margin-top: 15px;
+            background: #f9f9f9;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="form-container">
+    <h2>Registration Form</h2>
+
+    <form>
+        <label>Name:</label>
+        <input type="text" id="name">
+
+        <label>Email:</label>
+        <input type="email" id="email">
+
+        <label>Gender:</label><br>
+        <input type="radio" name="gender" value="Male" class="inline"> Male
+        <input type="radio" name="gender" value="Female" class="inline"> Female
+        <br><br>
+
+        <label>Skills:</label><br>
+        <input type="checkbox" value="HTML" class="skills inline"> HTML
+        <input type="checkbox" value="CSS" class="skills inline"> CSS
+        <br><br>
+
+        <button type="button" onclick="showData()">Submit</button>
+    </form>
+
+    <div id="output"></div>
+</div>
+
+<script>
+function showData() {
+    let name = document.getElementById("name").value;
+    let email = document.getElementById("email").value;
+
+    let gender = "";
+    let genders = document.getElementsByName("gender");
+    for (let g of genders) {
+        if (g.checked) {
+            gender = g.value;
+        }
+    }
+
+    let skills = [];
+    let skillList = document.getElementsByClassName("skills");
+    for (let skill of skillList) {
+        if (skill.checked) {
+            skills.push(skill.value);
+        }
+    }
+
+    document.getElementById("output").innerHTML =
+        "<b>Name:</b> " + name + "<br>" +
+        "<b>Email:</b> " + email + "<br>" +
+        "<b>Gender:</b> " + gender + "<br>" +
+        "<b>Skills:</b> " + skills.join(", ");
+}
+</script>
+
+</body>
+</html>

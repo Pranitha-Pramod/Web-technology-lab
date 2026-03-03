@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Form</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: linear-gradient(135deg,#667eea,#764ba2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .form-box {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            width: 300px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #667eea;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-box">
+    <h2>Student Form</h2>
+
+    <input type="text" id="name" placeholder="Name" required>
+    <input type="email" id="email" placeholder="Email" required>
+    <input type="text" id="course" placeholder="Course" required>
+
+    <button onclick="saveData()">Submit</button>
+</div>
+
+<script>
+function saveData() {
+
+    let name = document.getElementById("name").value;
+    let email = document.getElementById("email").value;
+    let course = document.getElementById("course").value;
+
+    if(name === "" || email === "" || course === "") {
+        alert("Please fill all fields");
+        return;
+    }
+
+    let student = {
+        name: name,
+        email: email,
+        course: course
+    };
+
+    let students = JSON.parse(localStorage.getItem("students")) || [];
+    students.push(student);
+
+    localStorage.setItem("students", JSON.stringify(students));
+
+    window.open("data.html", "_blank");
+}
+</script>
+
+</body>
+</html>

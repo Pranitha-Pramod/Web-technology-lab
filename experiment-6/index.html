@@ -68,6 +68,12 @@
         <label>Email:</label>
         <input type="email" id="email">
 
+        <label>Password:</label>
+        <input type="password" id="password">
+        
+        <label>Confirm Password:</label>
+        <input type="password" id="confirmPassword">
+
         <label>Gender:</label><br>
         <input type="radio" name="gender" value="Male" class="inline"> Male
         <input type="radio" name="gender" value="Female" class="inline"> Female
@@ -88,6 +94,14 @@
 function showData() {
     let name = document.getElementById("name").value;
     let email = document.getElementById("email").value;
+    let password = document.getElementById("password").value;
+    let confirmPassword = document.getElementById("confirmPassword").value;
+
+    // Password match validation
+    if (password !== confirmPassword) {
+        alert("Passwords do not match!");
+        return;
+    }
 
     let gender = "";
     let genders = document.getElementsByName("gender");
@@ -111,6 +125,7 @@ function showData() {
         "<b>Gender:</b> " + gender + "<br>" +
         "<b>Skills:</b> " + skills.join(", ");
 }
+</script>
 </script>
 
 </body>

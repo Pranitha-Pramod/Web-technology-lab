@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Stored Data</title>
+    <style>
+        body {
+            font-family: Arial;
+            padding: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+
+        button {
+            margin: 10px 5px;
+            padding: 8px 12px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Stored Student Data</h2>
+
+<table id="dataTable">
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Course</th>
+    </tr>
+</table>
+
+<button onclick="copyData()">Copy Data</button>
+<button onclick="downloadCSV()">Download CSV</button>
+
+<script>
+let students = JSON.parse(localStorage.getItem("students")) || [];
+
+let table = document.getElementById("dataTable");
+
+students.forEach(function(student) {
+    let row = table.insertRow();
+    row.insertCell(0).innerHTML = student.name;
+    row.insertCell(1).innerHTML = student.email;
+    row.insertCell(2).innerHTML = student.course;
+});
+
+function copyData() {
+    let text = "Name, Email, Course\n";
+
+    students.forEach(function(student) {
+        text += student.name + ", " + student.email + ", " + student.course + "\n";
+    });
+
+    navigator.clipboard.writeText(text);
+    alert("Data copied!");
+}
+
+function downloadCSV() {
+
+    let csv = "Name,Email,Course\n";
+
+    students.forEach(function(student) {
+        csv += student.name + "," + student.email + "," + student.course + "\n";
+    });
+
+    let blob = new Blob([csv], { type: "text/csv" });
+    let url = URL.createObjectURL(blob);
+
+    let a = document.createElement("a");
+    a.href = url;
+    a.download = "students.csv";
+    a.click();
+}
+</script>
+
+</body>
+</html>
